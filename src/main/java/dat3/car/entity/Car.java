@@ -26,9 +26,8 @@ public class Car {
     private int bestDiscount;
 
     @CreationTimestamp
-    LocalDate carCreation;
-
+    LocalDate created;
     @UpdateTimestamp
-    LocalDate carUpdate;
+    LocalDate lastEdited;
 
 }
