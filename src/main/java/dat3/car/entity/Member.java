@@ -44,9 +44,9 @@ public class Member {
         this.zip = zip;
     }
     @CreationTimestamp
-    LocalDate createDateTime;
+    LocalDate memberCreation;
     @UpdateTimestamp
-    LocalDate updateDateTime;
+    LocalDate memberUpdate;
 
     @ElementCollection
     List<String> favoriteCarColors = new ArrayList<>();
