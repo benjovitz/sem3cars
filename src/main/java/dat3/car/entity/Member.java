@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,9 +45,9 @@ public class Member {
         this.zip = zip;
     }
     @CreationTimestamp
-    LocalDate created;
+    LocalDateTime created;
     @UpdateTimestamp
-    LocalDate lastEdited;
+    LocalDateTime lastEdited;
 
     @ElementCollection
     List<String> favoriteCarColors = new ArrayList<>();
