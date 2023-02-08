@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -69,8 +70,8 @@ class MemberServiceMockitoTest {
     void findMemberByUsername() {
         Member m1 = new Member("m1", "test12", "m1@a.dk", "bb", "Olsen", "xx vej 34", "Lyngby", "2800");
         m1.setCreated(LocalDateTime.now());
-        Mockito.when(memberRepository.findByUsername("m1")).thenReturn(m1);
-
+        //Mockito.when(memberRepository.findByUsername("m1")).thenReturn(m1);
+        Mockito.when(memberRepository.findById("m1")).thenReturn(Optional.of(m1));
         MemberResponse response = memberService.findMemberByUsername("m1");
         assertEquals("m1@a.dk",response.getEmail());
 

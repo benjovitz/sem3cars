@@ -10,6 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MemberService {
@@ -42,8 +43,9 @@ public class MemberService {
         return new MemberResponse(newMember, false);
     }
     public MemberResponse findMemberByUsername(String username){
-       Member m = memberRepository.findByUsername(username);
-       MemberResponse mr = new MemberResponse(m,true);
+       Optional<Member> m = memberRepository.findById(username);
+       Member member = m.orElse(null);
+       MemberResponse mr = new MemberResponse(member,true);
        return mr;
     }
 }
