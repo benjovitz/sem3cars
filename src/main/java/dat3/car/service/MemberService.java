@@ -41,4 +41,9 @@ public class MemberService {
 
         return new MemberResponse(newMember, false);
     }
+    public MemberResponse findMemberByUsername(String username){
+       Member m = memberRepository.findByUsername(username);
+       MemberResponse mr = new MemberResponse(m,true);
+       return mr;
+    }
 }
