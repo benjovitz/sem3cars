@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,6 +41,7 @@ public class MemberService {
 
         return new MemberResponse(newMember, false);
     }
+
     public MemberResponse findMemberByUsername(String username){
        Optional<Member> m = memberRepository.findById(username);
        Member member = m.orElse(null);
@@ -53,13 +53,29 @@ public class MemberService {
         Member member = m.orElse(null);
         memberRepository.delete(member);
     }
-
     public MemberResponse setRankingForUser(String username, int value) {
         Optional<Member> m = memberRepository.findById(username);
         Member member = m.orElse(null);
         member.setRanking(value);
         memberRepository.save(member);
         MemberResponse mr = new MemberResponse(member,true);
+        return mr;
+    }
+
+    public MemberResponse editMember(String username, MemberRequest memberRequest) {
+        Optional<Member> m = memberRepository.findById(username);
+        Member member = m.orElse(null);
+        if (member != null) {
+            member.setPassword(memberRequest.getPassword());
+            member.setEmail(memberRequest.getEmail());
+            member.setFirstName(memberRequest.getFirstName());
+            member.setLastName(memberRequest.getLastName());
+            member.setStreet(memberRequest.getStreet());
+            member.setCity(memberRequest.getCity());
+            member.setZip(memberRequest.getZip());
+            member = memberRepository.save(member);
+        }
+        MemberResponse mr = new MemberResponse(member,false);
         return mr;
     }
 }
