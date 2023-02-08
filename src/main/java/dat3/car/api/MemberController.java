@@ -29,7 +29,9 @@ class MemberController {
 
     //Admin
     @GetMapping(path = "/{username}")
-    MemberResponse getMemberById(@PathVariable String username) throws Exception {return null;}
+    MemberResponse getMemberById(@PathVariable String username) throws Exception {
+        return memberService.findMemberByUsername(username);
+    }
 
     //Anonymous
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,10 +47,14 @@ class MemberController {
 
     //Admin
     @PatchMapping("/ranking/{username}/{value}")
-    void setRankingForUser(@PathVariable String username, @PathVariable int value) {}
+    MemberResponse setRankingForUser(@PathVariable String username, @PathVariable int value) {
+       return memberService.setRankingForUser(username,value);
+    }
 
     //Admin
     @DeleteMapping("/{username}")
-    void deleteMemberByUsername(@PathVariable String username) {}
+    void deleteMemberByUsername(@PathVariable String username) {
+    memberService.deleteMember(username);
+    }
 }
 

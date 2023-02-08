@@ -53,6 +53,7 @@ public class DeveloperData implements ApplicationRunner {
         Car c9 = new Car("Jeep", "Wrangler", 60.0);
         Car c10 = new Car("Dodge", "Challenger", 65.0);
 
+        c1.setBestDiscount(10);
         carRepository.save(c1);
         carRepository.save(c2);
         carRepository.save(c3);

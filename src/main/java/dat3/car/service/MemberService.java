@@ -48,4 +48,18 @@ public class MemberService {
        MemberResponse mr = new MemberResponse(member,true);
        return mr;
     }
+    public void deleteMember(String username){
+        Optional<Member> m = memberRepository.findById(username);
+        Member member = m.orElse(null);
+        memberRepository.delete(member);
+    }
+
+    public MemberResponse setRankingForUser(String username, int value) {
+        Optional<Member> m = memberRepository.findById(username);
+        Member member = m.orElse(null);
+        member.setRanking(value);
+        memberRepository.save(member);
+        MemberResponse mr = new MemberResponse(member,true);
+        return mr;
+    }
 }

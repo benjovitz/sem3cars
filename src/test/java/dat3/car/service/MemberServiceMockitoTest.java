@@ -70,11 +70,16 @@ class MemberServiceMockitoTest {
     void findMemberByUsername() {
         Member m1 = new Member("m1", "test12", "m1@a.dk", "bb", "Olsen", "xx vej 34", "Lyngby", "2800");
         m1.setCreated(LocalDateTime.now());
-        //Mockito.when(memberRepository.findByUsername("m1")).thenReturn(m1);
         Mockito.when(memberRepository.findById("m1")).thenReturn(Optional.of(m1));
         MemberResponse response = memberService.findMemberByUsername("m1");
         assertEquals("m1@a.dk",response.getEmail());
-
     }
-
+    @Test
+    void SetRankingForUser(){
+        Member m1 = new Member("m1", "test12", "m1@a.dk", "bb", "Olsen", "xx vej 34", "Lyngby", "2800");
+        m1.setCreated(LocalDateTime.now());
+        Mockito.when(memberRepository.findById("m1")).thenReturn(Optional.of(m1));
+        memberService.setRankingForUser("m1",2);
+        assertEquals(2,memberService.findMemberByUsername("m1").getRanking());
+    }
 }
