@@ -6,6 +6,7 @@ import dat3.car.repository.CarRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarService {
@@ -19,5 +20,13 @@ public class CarService {
         List<Car> cars = carRepository.findAll();
         List<CarRepsonse> carRepsonses = cars.stream().map(car -> new CarRepsonse(car,includeAll)).toList();
         return carRepsonses;
+    }
+
+    public CarRepsonse findCarByID(Long id) {
+        String s = String.valueOf(id);
+        Optional<Car> c = carRepository.findById(s);
+        Car car = c.orElse(null);
+        CarRepsonse carRepsonse = new CarRepsonse(car,true);
+        return carRepsonse;
     }
 }

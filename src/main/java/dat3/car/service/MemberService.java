@@ -50,10 +50,11 @@ public class MemberService {
     }
     public void deleteMember(String username){
         memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));
-
-        Optional<Member> m = memberRepository.findById(username);
-        Member member = m.orElse(null);
-        memberRepository.delete(member);
+        if(memberRepository.existsById(username)) {
+            Optional<Member> m = memberRepository.findById(username);
+            Member member = m.orElse(null);
+            memberRepository.delete(member);
+        }
     }
     public MemberResponse setRankingForUser(String username, int value) {
         memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));

@@ -4,6 +4,7 @@ import dat3.car.dto.CarRepsonse;
 import dat3.car.entity.Car;
 import dat3.car.service.CarService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,5 +24,9 @@ public class CarController {
     @GetMapping
     List<CarRepsonse> getCars(){
         return carService.getCars(true);
+    }
+    @GetMapping(path = "/{Id}")
+    CarRepsonse getCarById(@PathVariable Long Id ){
+        return carService.findCarByID(Id);
     }
 }
