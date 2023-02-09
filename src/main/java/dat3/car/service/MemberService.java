@@ -63,17 +63,9 @@ public class MemberService {
     }
 
     public MemberResponse editMember(String username, MemberRequest memberRequest) {
-        Optional<Member> m = memberRepository.findById(username);
-        Member member = m.orElse(null);
-        if (member != null) {
-            member.setPassword(memberRequest.getPassword());
-            member.setEmail(memberRequest.getEmail());
-            member.setFirstName(memberRequest.getFirstName());
-            member.setLastName(memberRequest.getLastName());
-            member.setStreet(memberRequest.getStreet());
-            member.setCity(memberRequest.getCity());
-            member.setZip(memberRequest.getZip());
-            member = memberRepository.save(member);
+        Member member = MemberRequest.getMemberEntity(memberRequest);
+        if(member!=null){
+            memberRepository.save(member);
         }
         MemberResponse mr = new MemberResponse(member,false);
         return mr;
