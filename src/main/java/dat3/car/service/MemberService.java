@@ -49,11 +49,14 @@ public class MemberService {
        return mr;
     }
     public void deleteMember(String username){
+        memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));
+
         Optional<Member> m = memberRepository.findById(username);
         Member member = m.orElse(null);
         memberRepository.delete(member);
     }
     public MemberResponse setRankingForUser(String username, int value) {
+        memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));
         Optional<Member> m = memberRepository.findById(username);
         Member member = m.orElse(null);
         member.setRanking(value);
@@ -62,12 +65,12 @@ public class MemberService {
         return mr;
     }
 
-    public MemberResponse editMember(String username, MemberRequest memberRequest) {
-        Member member = MemberRequest.getMemberEntity(memberRequest);
-        if(member!=null){
+    public void editMember(String username, MemberRequest memberRequest) {
+        memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));
+
+        if(memberRepository.existsById(username)) {
+            Member member = MemberRequest.getMemberEntity(memberRequest);
             memberRepository.save(member);
         }
-        MemberResponse mr = new MemberResponse(member,false);
-        return mr;
     }
 }
