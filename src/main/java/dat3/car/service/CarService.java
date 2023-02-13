@@ -3,6 +3,7 @@ package dat3.car.service;
 import dat3.car.dto.CarRepsonse;
 import dat3.car.dto.CarRequest;
 import dat3.car.entity.Car;
+import dat3.car.entity.Member;
 import dat3.car.repository.CarRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -40,11 +41,12 @@ public class CarService {
     }
 
     public void editCar(long id, CarRequest carRequest) {
-        carRepository.findById(String.valueOf(id)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Car with this ID doesnt exist"));
+      Car carToEdit =  carRepository.findById(String.valueOf(id)).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,"Car with this ID doesnt exist"));
+      Optional.ofNullable(carRequest.getBrand()).ifPresent(carToEdit::setBrand);
+      Optional.ofNullable(carRequest.getModel()).ifPresent(carToEdit::setModel);
+      Optional.ofNullable(carRequest.getPricePrDay()).ifPresent(carToEdit::setPricePrDay);
+      carRepository.save(carToEdit);
 
-        Car car = CarRequest.getCarEntity(carRequest);
-        car.setId(id);
-        carRepository.save(car);
     }
 
     public CarRepsonse setDiscount(long id, int value) {

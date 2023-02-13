@@ -65,9 +65,16 @@ public class MemberService {
     }
 
     public void editMember(String username, MemberRequest memberRequest) {
-        memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));
-            Member member = MemberRequest.getMemberEntity(memberRequest);
-            memberRepository.save(member);
+        Member memberToEdit = memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));
+
+        Optional.ofNullable(memberRequest.getEmail()).ifPresent(memberToEdit::setEmail);
+        Optional.ofNullable(memberRequest.getPassword()).ifPresent(memberToEdit::setPassword);
+        Optional.ofNullable(memberRequest.getFirstName()).ifPresent(memberToEdit::setFirstName);
+        Optional.ofNullable(memberRequest.getLastName()).ifPresent(memberToEdit::setLastName);
+        Optional.ofNullable(memberRequest.getStreet()).ifPresent(memberToEdit::setStreet);
+        Optional.ofNullable(memberRequest.getZip()).ifPresent(memberToEdit::setZip);
+        Optional.ofNullable(memberRequest.getCity()).ifPresent(memberToEdit::setCity);
+        memberRepository.save(memberToEdit);
 
     }
 }
