@@ -1,3 +1,5 @@
+[![Build and deploy JAR app to Azure Web App - CarsRUsSchool](https://github.com/benjovitz/sem3cars/actions/workflows/master_carsrusschool.yml/badge.svg)](https://github.com/benjovitz/sem3cars/actions/workflows/master_carsrusschool.yml)
+
 # sem3cars
 
 # First hand-in
