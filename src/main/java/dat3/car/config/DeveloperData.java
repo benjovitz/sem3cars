@@ -7,9 +7,16 @@ import dat3.car.entity.Reservation;
 import dat3.car.repository.CarRepository;
 import dat3.car.repository.MemberRepository;
 import dat3.car.repository.ReservationRepository;
+import dat3.car.security.entity.Role;
+import dat3.car.security.entity.UserWithRoles;
+import dat3.car.security.repository.UserWithRolesRepository;
 import dat3.car.service.ReservationService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
@@ -19,7 +26,11 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@EnableJpaRepositories(basePackages = {"dat3.car.security.repository", "dat3.car.repository"})
 public class DeveloperData implements ApplicationRunner {
+    @Autowired
+    UserWithRolesRepository userWithRolesRepository;
+    final String passwordUsedByAll = "test12";
 
     MemberRepository memberRepository;
     CarRepository carRepository;
@@ -35,7 +46,6 @@ public class DeveloperData implements ApplicationRunner {
         this.reservationService = reservationService;
     }
 
-    private final String passwordUsedByAll = "test12";
     private List<String> colors = new ArrayList<>();
     private Map<String,String> phone = new HashMap<>();
 
@@ -91,6 +101,36 @@ public class DeveloperData implements ApplicationRunner {
         reservationService.makeReservation(reservationRequest1);
         reservationService.makeReservation(reservationRequest2);
 
+
+        setupUserWithRoleUsers();
+
+
+
+    }
+    /*****************************************************************************************
+     NEVER  COMMIT/PUSH CODE WITH DEFAULT CREDENTIALS FOR REAL
+     iT'S ONE OF THE TOP SECURITY FLAWS YOU CAN DO
+     *****************************************************************************************/
+    private void setupUserWithRoleUsers() {
+
+        System.out.println("******************************************************************************");
+        System.out.println("******* NEVER  COMMIT/PUSH CODE WITH DEFAULT CREDENTIALS FOR REAL ************");
+        System.out.println("******* REMOVE THIS BEFORE DEPLOYMENT, AND SETUP DEFAULT USERS DIRECTLY  *****");
+        System.out.println("**** ** ON YOUR REMOTE DATABASE                 ******************************");
+        System.out.println("******************************************************************************");
+        UserWithRoles user1 = new UserWithRoles("user1", passwordUsedByAll, "user1@a.dk");
+        UserWithRoles user2 = new UserWithRoles("user2", passwordUsedByAll, "user2@a.dk");
+        UserWithRoles user3 = new UserWithRoles("user3", passwordUsedByAll, "user3@a.dk");
+        UserWithRoles user4 = new UserWithRoles("user4", passwordUsedByAll, "user4@a.dk");
+        user1.addRole(Role.USER);
+        user1.addRole(Role.ADMIN);
+        user2.addRole(Role.USER);
+        user3.addRole(Role.ADMIN);
+        //No Role assigned to user4
+        userWithRolesRepository.save(user1);
+        userWithRolesRepository.save(user2);
+        userWithRolesRepository.save(user3);
+        userWithRolesRepository.save(user4);
     }
 
 }

@@ -2,6 +2,7 @@ package dat3.car.entity;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import dat3.car.security.entity.UserWithRoles;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,11 +18,9 @@ import java.util.*;
 @Builder
 
 @Entity
-public class Member {
-    @Id
-    private String username;
-    private String password;
-    private String email;
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "USER_TYPE")
+public class Member extends UserWithRoles {
     private String firstName;
     private String lastName;
     private String street;
@@ -34,9 +33,7 @@ public class Member {
 
     public Member(String user, String password, String email,
                   String firstName, String lastName, String street, String city, String zip) {
-        this.username = user;
-        this.password= password;
-        this.email = email;
+        super(user,password,email);
         this.firstName = firstName;
         this.lastName = lastName;
         this.street = street;
