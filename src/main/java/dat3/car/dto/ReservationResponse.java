@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Map;
 
 @Getter
 @Setter
@@ -27,14 +28,26 @@ public class ReservationResponse {
     Long carID;
     String model;
     //Member variables
+    String username;
+    String email;
+    Map<String, String> phones;
 
-
-    public ReservationResponse(Reservation r){
+    public ReservationResponse(Reservation r,boolean trueForMember,boolean trueForCar){
         this.date=r.getDate();
-        this.carID=r.getCar().getId();
-        this.brand=r.getCar().getBrand();
-        this.model=r.getCar().getModel();
+        if(trueForMember) {
+            this.carID = r.getCar().getId();
+            this.brand = r.getCar().getBrand();
+            this.model = r.getCar().getModel();
+        } else if (trueForCar){
+            this.username=r.getMember().getUsername();
+            this.email=r.getMember().getEmail();
+            this.phones=r.getMember().getPhones();
+        }
+    }
 
-
+    public ReservationResponse(Reservation r) {
+        this.date=r.getDate();
+        this.carID = r.getCar().getId();
+        this.username=r.getMember().getUsername();
     }
 }

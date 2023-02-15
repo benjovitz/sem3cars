@@ -47,7 +47,6 @@ public class MemberResponse {
         this.city = m.getCity();
         this.zip = m.getZip();
         this.phones = m.getPhones();
-
         if (includeAll) {
             this.created = m.getCreated();
             this.approved = m.isApproved();
@@ -57,7 +56,7 @@ public class MemberResponse {
         if (includeReservation && m.getReservations() != null) {
             Set<ReservationResponse> reservationResponses = new HashSet<>();
             for (Reservation reservation : m.getReservations()) {
-                reservationResponses.add(new ReservationResponse(reservation));
+                reservationResponses.add(new ReservationResponse(reservation,true,false));
             }
             this.reservations = reservationResponses;
         }

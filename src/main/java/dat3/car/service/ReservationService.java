@@ -27,7 +27,7 @@ public class ReservationService {
             reservationRepository.save(newReservation);
             request.getCar().addReservation(newReservation);
             request.getMember().addReservation(newReservation);
-            return new ReservationResponse(newReservation);
+            return new ReservationResponse(newReservation,true,true);
         }
         return null;
 
