@@ -7,10 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 @Setter
@@ -56,6 +53,17 @@ public class Member {
     @MapKeyColumn(name = "description")
     @Column(name = "phone_number")
     Map<String,String> phones = new HashMap<>();
+
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    Set<ReservationDate> reservationDates = new HashSet<>();
+
+    public void addReservation(ReservationDate r){
+        if(reservationDates==null){
+            reservationDates=new HashSet<>();
+        }
+        reservationDates.add(r);
+    }
+
 
 
 

@@ -34,7 +34,7 @@ class MemberController {
     }
 
     //Anonymous
-    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     MemberResponse addMember(@RequestBody MemberRequest body){
         return memberService.addMember(body);
     }
