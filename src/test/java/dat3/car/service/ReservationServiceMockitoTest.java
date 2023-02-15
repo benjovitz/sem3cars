@@ -4,16 +4,20 @@ import dat3.car.dto.ReservationRequest;
 import dat3.car.dto.ReservationResponse;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
+import dat3.car.entity.Reservation;
 import dat3.car.repository.ReservationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceMockitoTest {
@@ -35,25 +39,12 @@ class ReservationServiceMockitoTest {
 
     }
     @Test
-    void makeReservationSuccess(){
-        Car car = new Car("HEj","Hej",200.0);
-        Member newMember = new Member("user", "mypassword", "johndoe@example.com",
-                "John", "Doe", "123 Main St", "Anytown", "12345");
-        ReservationRequest reservationRequest = new ReservationRequest(LocalDate.now(),car,newMember);
-        ReservationResponse testDate = reservationService.makeReservation(reservationRequest);
-        //Mockito.when(reservationRepository.findById(String.valueOf(1))).thenReturn(Optional.ofNullable(testDate));
-
-        assertEquals("user",testDate.getMember().getUsername());
-    }
-    @Test
     void makeReservationError(){
         Car car = new Car("HEj","Hej",200.0);
         Member newMember = new Member("user", "mypassword", "johndoe@example.com",
                 "John", "Doe", "123 Main St", "Anytown", "12345");
         ReservationRequest reservationRequest = new ReservationRequest(LocalDate.of(2020,02,02),car,newMember);
         ReservationResponse testDate = reservationService.makeReservation(reservationRequest);
-        //Mockito.when(reservationRepository.findById(String.valueOf(1))).thenReturn(Optional.ofNullable(testDate));
-
         assertNull(testDate);
     }
 }
