@@ -1,11 +1,12 @@
 package dat3.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -28,6 +29,7 @@ public class Member {
     private String zip;
     private boolean approved;
     private int ranking;
+
 
 
     public Member(String user, String password, String email,
@@ -55,13 +57,14 @@ public class Member {
     Map<String,String> phones = new HashMap<>();
 
     @OneToMany(mappedBy = "member",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    Set<ReservationDate> reservationDates = new HashSet<>();
+    Set<Reservation> reservations = new HashSet<>();
 
-    public void addReservation(ReservationDate r){
-        if(reservationDates==null){
-            reservationDates=new HashSet<>();
+    public void addReservation(Reservation r){
+        if(reservations ==null){
+            reservations =new HashSet<>();
         }
-        reservationDates.add(r);
+        reservations.add(r);
+        r.setMember(this);
     }
 
 

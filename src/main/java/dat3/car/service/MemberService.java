@@ -27,9 +27,9 @@ public class MemberService {
         return member;
     }
 
-     public List<MemberResponse> getMembers(boolean includeAll) {
+    public List<MemberResponse> getMembers(boolean includeAll) {
         List<Member> members = memberRepository.findAll();
-        List<MemberResponse> memberResponses = members.stream().map(m->new MemberResponse(m,includeAll)).toList();
+        List<MemberResponse> memberResponses = members.stream().map(m->new MemberResponse(m,includeAll,false)).toList();
         return memberResponses;
     }
 
@@ -45,12 +45,12 @@ public class MemberService {
         Member newMember = MemberRequest.getMemberEntity(memberRequest);
         newMember = memberRepository.save(newMember);
 
-        return new MemberResponse(newMember, false);
+        return new MemberResponse(newMember, false,false);
     }
 
     public MemberResponse findMemberByUsername(String username){
        Member member = findMember(username);
-       MemberResponse mr = new MemberResponse(member,true);
+       MemberResponse mr = new MemberResponse(member,true,true);
        return mr;
     }
     public void deleteMember(String username){
@@ -65,7 +65,7 @@ public class MemberService {
         Member member = m.orElse(null);
         member.setRanking(value);
         memberRepository.save(member);
-        MemberResponse mr = new MemberResponse(member,true);
+        MemberResponse mr = new MemberResponse(member,true,false);
         return mr;
     }
 

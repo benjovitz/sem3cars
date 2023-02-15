@@ -10,6 +10,8 @@ import dat3.car.service.ReservationService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("api/reservations")
 public class ReservationController {
@@ -22,6 +24,11 @@ public class ReservationController {
         this.reservationService = reservationService;
         this.carService = carService;
         this.memberService = memberService;
+    }
+
+    @GetMapping
+    List<ReservationResponse> getReservations(){
+        return reservationService.getReservations();
     }
 
     @PostMapping("/{username}/{carID}")

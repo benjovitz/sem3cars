@@ -4,19 +4,14 @@ import dat3.car.dto.ReservationRequest;
 import dat3.car.dto.ReservationResponse;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
-import dat3.car.entity.ReservationDate;
 import dat3.car.repository.ReservationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 

@@ -3,12 +3,12 @@ package dat3.car.service;
 
 import dat3.car.dto.ReservationRequest;
 import dat3.car.dto.ReservationResponse;
-import dat3.car.entity.ReservationDate;
+import dat3.car.entity.Reservation;
 import dat3.car.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 
@@ -23,11 +23,11 @@ public class ReservationService {
 
     public ReservationResponse makeReservation(ReservationRequest request){
         if(!request.getCar().checkDate(request.getReservationDate()) && validityDateCheck(request.getReservationDate())){
-            ReservationDate newReservationDate = ReservationRequest.getReservationDateEntity(request);
-            reservationRepository.save(newReservationDate);
-            request.getCar().addReservation(newReservationDate);
-            request.getMember().addReservation(newReservationDate);
-            return new ReservationResponse(newReservationDate);
+            Reservation newReservation = ReservationRequest.getReservationDateEntity(request);
+            reservationRepository.save(newReservation);
+            request.getCar().addReservation(newReservation);
+            request.getMember().addReservation(newReservation);
+            return new ReservationResponse(newReservation);
         }
         return null;
 
@@ -38,5 +38,10 @@ public class ReservationService {
             return false;
         }
         return true;
+    }
+
+    public List<ReservationResponse> getReservations() {
+        List<Reservation> reservations = reservationRepository.findAll();
+        return reservations.stream().map(ReservationResponse::new).toList();
     }
 }

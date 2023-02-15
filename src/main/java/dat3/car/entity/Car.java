@@ -1,5 +1,6 @@
 package dat3.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -40,20 +41,21 @@ public class Car {
     LocalDateTime lastEdited;
 
     @OneToMany(mappedBy = "car",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    Set<ReservationDate> reservationDates = new HashSet<>();
+    Set<Reservation> reservations = new HashSet<>();
 
-    public void addReservation(ReservationDate r){
-        if(reservationDates==null){
-            reservationDates=new HashSet<>();
+    public void addReservation(Reservation r){
+        if(reservations ==null){
+            reservations =new HashSet<>();
         }
-        reservationDates.add(r);
+        reservations.add(r);
+        r.setCar(this);
     }
 
     public boolean checkDate(LocalDate date){
-        Iterator<ReservationDate> iterator = reservationDates.iterator();
+        Iterator<Reservation> iterator = reservations.iterator();
         while (iterator.hasNext()){
-            ReservationDate reservationDate = iterator.next();
-            if(reservationDate.date.equals(date)){
+            Reservation reservation = iterator.next();
+            if(reservation.date.equals(date)){
                 System.out.println("Date already exists");
                 return true;
             }

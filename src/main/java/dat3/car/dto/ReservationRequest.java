@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
-import dat3.car.entity.ReservationDate;
+import dat3.car.entity.Reservation;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -26,13 +26,13 @@ public class ReservationRequest {
 
     Member member;
 
-    public static ReservationDate getReservationDateEntity(ReservationRequest r){
-        return new ReservationDate(r.getCar(),r.member,r.getReservationDate());
+    public static Reservation getReservationDateEntity(ReservationRequest r){
+        return new Reservation(r.getCar(),r.member,r.getReservationDate());
     }
 
-    public ReservationRequest(ReservationDate reservationDate) {
-        this.reservationDate = reservationDate.getDate();
-        this.car = reservationDate.getCar();
-        this.member = reservationDate.getMember();
+    public ReservationRequest(Reservation reservation) {
+        this.reservationDate = reservation.getDate();
+        this.car = reservation.getCar();
+        this.member = reservation.getMember();
     }
 }

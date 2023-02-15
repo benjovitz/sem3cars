@@ -24,7 +24,7 @@ class MemberController {
     //Admin only
     @GetMapping
     List<MemberResponse> getMembers(){
-        return memberService.getMembers(true);
+        return memberService.getMembers(false);
     }
 
     //Admin

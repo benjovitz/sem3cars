@@ -3,7 +3,7 @@ package dat3.car.config;
 import dat3.car.dto.ReservationRequest;
 import dat3.car.entity.Car;
 import dat3.car.entity.Member;
-import dat3.car.entity.ReservationDate;
+import dat3.car.entity.Reservation;
 import dat3.car.repository.CarRepository;
 import dat3.car.repository.MemberRepository;
 import dat3.car.repository.ReservationRepository;
@@ -80,8 +80,8 @@ public class DeveloperData implements ApplicationRunner {
         carRepository.save(c10);
 
         System.out.println("----------Reservationdate----------");
-        ReservationDate r1 = ReservationDate.builder().member(m1).car(c1).date(LocalDate.now()).build();
-        ReservationDate r2 = ReservationDate.builder().member(m2).car(c1).date(LocalDate.now()).build();
+        Reservation r1 = Reservation.builder().member(m1).car(c1).date(LocalDate.now()).build();
+        Reservation r2 = Reservation.builder().member(m2).car(c1).date(LocalDate.now()).build();
 
 
         //reservationDateRepository.save(r1);
