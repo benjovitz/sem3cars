@@ -89,7 +89,6 @@ public class DeveloperData implements ApplicationRunner {
         ReservationRequest reservationRequest2 = new ReservationRequest(r2);
 
         reservationService.makeReservation(reservationRequest1);
-        c1.addReservation(r1);
         reservationService.makeReservation(reservationRequest2);
 
     }

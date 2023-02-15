@@ -20,6 +20,7 @@ public class ReservationService {
         if(request.getCar().checkDate(request.getReservationDate())==false) {
             ReservationDate newReservationDate = ReservationRequest.getReservationDateEntity(request);
             reservationRepository.save(newReservationDate);
+            request.getCar().addReservation(newReservationDate);
         }
         //return new ReservationRepsonse(newReservationDate,true);
 
