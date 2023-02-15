@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.*;
 
 @Getter
 @Setter
@@ -37,6 +38,30 @@ public class Car {
     LocalDateTime created;
     @UpdateTimestamp
     LocalDateTime lastEdited;
+
+    @OneToMany(mappedBy = "car",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    Set<ReservationDate> reservationDates = new HashSet<>();
+
+    public void addReservation(ReservationDate r){
+        if(reservationDates==null){
+            reservationDates=new HashSet<>();
+        }
+        reservationDates.add(r);
+    }
+
+    public boolean checkDate(LocalDate date){
+        Iterator<ReservationDate> iterator = reservationDates.iterator();
+        while (iterator.hasNext()){
+            ReservationDate reservationDate = iterator.next();
+            if(reservationDate.date.equals(date)){
+                System.out.println("Date already exists");
+                return true;
+            }
+        }
+        return false;
+
+    }
+
 
     public Car (String brand, String model, Double pricePrDay){
         this.brand=brand;

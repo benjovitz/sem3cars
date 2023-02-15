@@ -20,8 +20,14 @@ public class MemberService {
         this.memberRepository=memberRepository;
     }
 
+    public Member findMember(String username){
+        memberRepository.findById(username).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Member with this ID does not exist"));
+        Optional<Member> m = memberRepository.findById(username);
+        Member member = m.orElse(null);
+        return member;
+    }
 
-    public List<MemberResponse> getMembers(boolean includeAll) {
+     public List<MemberResponse> getMembers(boolean includeAll) {
         List<Member> members = memberRepository.findAll();
         List<MemberResponse> memberResponses = members.stream().map(m->new MemberResponse(m,includeAll)).toList();
         return memberResponses;
@@ -43,8 +49,7 @@ public class MemberService {
     }
 
     public MemberResponse findMemberByUsername(String username){
-       Optional<Member> m = memberRepository.findById(username);
-       Member member = m.orElse(null);
+       Member member = findMember(username);
        MemberResponse mr = new MemberResponse(member,true);
        return mr;
     }

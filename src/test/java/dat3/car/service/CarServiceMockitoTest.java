@@ -2,11 +2,9 @@ package dat3.car.service;
 
 import dat3.car.dto.CarRepsonse;
 import dat3.car.dto.CarRequest;
-import dat3.car.dto.MemberRequest;
-import dat3.car.dto.MemberResponse;
 import dat3.car.entity.Car;
-import dat3.car.entity.Member;
 import dat3.car.repository.CarRepository;
+import dat3.car.repository.ReservationRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,11 +22,13 @@ class CarServiceMockitoTest {
 
     @Mock
     CarRepository carRepository;
+    @Mock
+    ReservationRepository reservationRepository;
 
     CarService carService;
     @BeforeEach
     void setup(){
-        carService = new CarService(carRepository);
+        carService = new CarService(carRepository, reservationRepository);
     }
 
     @Test
