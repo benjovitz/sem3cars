@@ -82,4 +82,9 @@ public class MemberService {
         memberRepository.save(memberToEdit);
 
     }
+    public List<MemberResponse> findMembersWithReservation(){
+        List<Member> members = memberRepository.findMembersByReservationsIsNotNull();
+        List<MemberResponse> memberResponses = members.stream().map(m->new MemberResponse(m,false,true)).toList();
+        return memberResponses;
+    }
 }

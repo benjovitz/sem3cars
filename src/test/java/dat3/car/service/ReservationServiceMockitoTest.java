@@ -14,6 +14,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -46,5 +48,16 @@ class ReservationServiceMockitoTest {
         ReservationRequest reservationRequest = new ReservationRequest(LocalDate.of(2020,02,02),car,newMember);
         ReservationResponse testDate = reservationService.makeReservation(reservationRequest);
         assertNull(testDate);
+    }
+    @Test
+    void numberOfReservations(){
+        Car car = new Car("HEj","Hej",200.0);
+        Member member = new Member("user", "mypassword", "johndoe@example.com",
+                "John", "Doe", "123 Main St", "Anytown", "12345");
+        Reservation reservation = new Reservation(car,member,LocalDate.now());
+        List<Reservation> list = new ArrayList<>();
+        list.add(reservation);
+        Mockito.when(reservationRepository.findReservationsByMember(member)).thenReturn(list);
+        assertEquals(1,reservationService.numberOfReservations(member));
     }
 }

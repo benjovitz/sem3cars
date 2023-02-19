@@ -2,7 +2,9 @@ package dat3.car.service;
 
 import dat3.car.dto.MemberRequest;
 import dat3.car.dto.MemberResponse;
+import dat3.car.entity.Car;
 import dat3.car.entity.Member;
+import dat3.car.entity.Reservation;
 import dat3.car.repository.MemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

@@ -41,4 +41,9 @@ public class ReservationController {
         System.out.println("----------RESPONSE----------");
         return reservationService.makeReservation(body);
     }
+   @GetMapping("/{username}")
+    List<ReservationResponse> reservationByMember(@PathVariable String username){
+        Member member = memberService.findMember(username);
+    return reservationService.reservationsByMember(member);
+   }
 }

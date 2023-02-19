@@ -1,11 +1,14 @@
 package dat3.car.service;
 
 
+import dat3.car.dto.MemberResponse;
 import dat3.car.dto.ReservationRequest;
 import dat3.car.dto.ReservationResponse;
+import dat3.car.entity.Member;
 import dat3.car.entity.Reservation;
 import dat3.car.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -43,5 +46,16 @@ public class ReservationService {
     public List<ReservationResponse> getReservations() {
         List<Reservation> reservations = reservationRepository.findAll();
         return reservations.stream().map(ReservationResponse::new).toList();
+    }
+
+    public int numberOfReservations(Member member){
+        int i=reservationRepository.findReservationsByMember(member).size();
+        return i;
+    }
+
+    public List<ReservationResponse> reservationsByMember(Member member) {
+        List<Reservation> reservations =  reservationRepository.findReservationsByMember(member);
+        List<ReservationResponse> reservationResponses = reservations.stream().map(r->new ReservationResponse(r,true,true)).toList();
+        return reservationResponses;
     }
 }
