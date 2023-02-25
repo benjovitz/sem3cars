@@ -78,7 +78,7 @@ public class SecurityConfig {
             .jwtAuthenticationConverter(authenticationConverter());
 
     http.authorizeHttpRequests((authorize) -> authorize
-            //Obviously we need to be able to login without being logged in :-)
+            //Obviously we need to be able to log in without being logged in :-)
             .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
 
             //Required in order to use the h2-console
