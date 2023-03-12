@@ -52,6 +52,7 @@ public class CarService {
       Optional.ofNullable(carRequest.getBrand()).ifPresent(carToEdit::setBrand);
       Optional.ofNullable(carRequest.getModel()).ifPresent(carToEdit::setModel);
       Optional.ofNullable(carRequest.getPricePrDay()).ifPresent(carToEdit::setPricePrDay);
+      Optional.ofNullable(carRequest.getBestDiscount()).ifPresent(carToEdit::setBestDiscount);
       carRepository.save(carToEdit);
 
     }

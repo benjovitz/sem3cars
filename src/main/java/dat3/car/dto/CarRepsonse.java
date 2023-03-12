@@ -23,7 +23,7 @@ public class CarRepsonse {
     String brand;
     String model;
     Double pricePrDay;
-    Integer bestDicsount;
+    Integer bestDiscount;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     LocalDateTime created;
@@ -40,7 +40,7 @@ public class CarRepsonse {
         if(includeAll){
             this.id=c.getId();
             this.created=c.getCreated();
-            this.bestDicsount=c.getBestDiscount();
+            this.bestDiscount=c.getBestDiscount();
             if (c.getReservations() != null) {
                 Set<ReservationResponse> reservationResponses = new HashSet<>();
                 for (Reservation reservation : c.getReservations()) {

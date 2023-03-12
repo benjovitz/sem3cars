@@ -16,13 +16,18 @@ public class CarRequest {
     String model;
     Double pricePrDay;
 
+    Integer bestDiscount;
+
     public static Car getCarEntity(CarRequest c){
         return new Car(c.brand,c.model,c.pricePrDay);
     }
+
 
     public CarRequest(Car c){
         this.brand=c.getBrand();
         this.model=c.getModel();
         this.pricePrDay=c.getPricePrDay();
+        this.bestDiscount = c.getBestDiscount();
     }
+
 }
