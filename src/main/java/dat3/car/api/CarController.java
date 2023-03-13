@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/cars")
+@RequestMapping("api/cars/")
 public class CarController {
 
     CarService carService;
