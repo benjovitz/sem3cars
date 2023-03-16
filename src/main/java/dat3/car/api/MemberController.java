@@ -35,7 +35,7 @@ class MemberController {
     }
 
     //Anonymous
-    @PostMapping
+    @PostMapping()
     MemberResponse addMember(@RequestBody MemberRequest body){
         return memberService.addMember(body);
     }

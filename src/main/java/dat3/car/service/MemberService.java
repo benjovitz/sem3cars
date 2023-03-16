@@ -4,6 +4,9 @@ import dat3.car.dto.MemberRequest;
 import dat3.car.dto.MemberResponse;
 import dat3.car.entity.Member;
 import dat3.car.repository.MemberRepository;
+import dat3.car.security.entity.Role;
+import dat3.car.security.entity.UserWithRoles;
+import dat3.car.security.repository.UserWithRolesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,9 +18,11 @@ import java.util.Optional;
 public class MemberService {
 
     MemberRepository memberRepository;
+    UserWithRolesRepository userWithRolesRepository;
 
-    public MemberService(MemberRepository memberRepository){
-        this.memberRepository=memberRepository;
+    public MemberService(MemberRepository memberRepository, UserWithRolesRepository userWithRolesRepository) {
+        this.memberRepository = memberRepository;
+        this.userWithRolesRepository = userWithRolesRepository;
     }
 
     public Member findMember(String username){
@@ -43,6 +48,9 @@ public class MemberService {
         }
 
         Member newMember = MemberRequest.getMemberEntity(memberRequest);
+        UserWithRoles user = newMember;
+        user.addRole(Role.USER);
+        userWithRolesRepository.save(user);
         newMember = memberRepository.save(newMember);
 
         return new MemberResponse(newMember, false,false);

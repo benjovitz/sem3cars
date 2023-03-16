@@ -32,7 +32,7 @@ class MemberServiceMockitoTest {
 
     @BeforeEach
     void setUp() {
-        memberService = new MemberService(memberRepository);
+        memberService = new MemberService(memberRepository,null);
     }
 
     @Test
