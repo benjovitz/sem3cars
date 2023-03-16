@@ -6,6 +6,8 @@ import dat3.car.entity.Car;
 import dat3.car.entity.Member;
 import dat3.car.entity.Reservation;
 import dat3.car.repository.MemberRepository;
+import dat3.car.security.entity.UserWithRoles;
+import dat3.car.security.repository.UserWithRolesRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,12 +29,14 @@ class MemberServiceMockitoTest {
 
     @Mock
     MemberRepository memberRepository;
+    @Mock
+    UserWithRolesRepository userWithRolesRepository;
 
     MemberService memberService;
 
     @BeforeEach
     void setUp() {
-        memberService = new MemberService(memberRepository,null);
+        memberService = new MemberService(memberRepository,userWithRolesRepository);
     }
 
     @Test
@@ -54,6 +58,7 @@ class MemberServiceMockitoTest {
         m1.setCreated(LocalDateTime.now());
         m2.setCreated(LocalDateTime.now());
         Mockito.when(memberRepository.findAll()).thenReturn(List.of(m1,m2));
+
         List<MemberResponse> members = memberService.getMembers(true);
         assertEquals(2,members.size());
         assertNotNull(members.get(0).getCreated());
