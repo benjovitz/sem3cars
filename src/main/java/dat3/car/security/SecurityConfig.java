@@ -96,7 +96,8 @@ public class SecurityConfig {
            // .requestMatchers(HttpMethod.GET,"/api/demo/anonymous").permitAll());
 
            // Demonstrates another way to add roles to an endpoint
-           // .requestMatchers(HttpMethod.GET, "/api/demo/admin").hasAuthority("ADMIN")
+           //.requestMatchers("/api/cars/").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.GET,"/api/members/").hasAuthority("ADMIN")
     .anyRequest().authenticated());
 
     return http.build();

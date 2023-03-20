@@ -28,6 +28,10 @@ public class CarController {
     List<CarRepsonse> getCars(){
         return carService.getCars(true);
     }
+    @GetMapping("/user")
+    List<CarRepsonse> getCarsUser(){
+        return carService.getCars(false);
+    }
     @GetMapping(path = "/{Id}")
     CarRepsonse getCarById(@PathVariable Long Id ){
         return carService.findCarByID(Id);

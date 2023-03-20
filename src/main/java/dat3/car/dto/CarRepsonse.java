@@ -37,8 +37,8 @@ public class CarRepsonse {
         this.brand=c.getBrand();
         this.model=c.getModel();
         this.pricePrDay=c.getPricePrDay();
+        this.id=c.getId();
         if(includeAll){
-            this.id=c.getId();
             this.created=c.getCreated();
             this.bestDiscount=c.getBestDiscount();
             if (c.getReservations() != null) {
